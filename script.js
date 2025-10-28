@@ -16,18 +16,16 @@
 
   cw1.addEventListener("click", function() {
     answer.innerHTML = "Loading...";
-    setTimeout(() => {
-      fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(response => response.json())
-        .then(posts => {
-          let html = "<ul>";
-          posts.forEach(post => {
-            html += `<li><strong>${post.title}</strong><br>${post.body}</li>`;
-          });
-          html += "</ul>";
-          answer.innerHTML = html;
-        })
-    }, 1000);
+    fetch('https://jsonplaceholder.typicode.com/posts/1')
+      .then(response => response.json())
+      .then(post => {
+        const html = `
+            <h3>Post #${post.id}</h3>
+            <p><strong>${post.title}</strong></p>
+            <p>${post.body}</p>
+          `;
+        answer.innerHTML = html;
+      })
   })
 
   cw2.addEventListener("click", function() {
