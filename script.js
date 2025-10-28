@@ -16,15 +16,23 @@
 
   cw1.addEventListener("click", function() {
     answer.innerHTML = "Loading...";
+
+    const newPost = {
+      title: "Nowy post z zadania 2_1.4",
+      body: "To jest treść nowego posta wysłanego metodą POST.",
+      userId: 1
+    };
+
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      body: JSON.stringify(newPost)
+    })
     fetch('https://jsonplaceholder.typicode.com/posts/1')
       .then(response => response.json())
-      .then(post => {
-        const html = `
-            <h3>Post #${post.id}</h3>
-            <p><strong>${post.title}</strong></p>
-            <p>${post.body}</p>
-          `;
-        answer.innerHTML = html;
+      .then(data => {
+        answer.innerHTML = `✅ Dodano nowy post o ID = ${data.id}`;
+        console.log("Odpowiedź serwera:", data);
       })
   })
 
